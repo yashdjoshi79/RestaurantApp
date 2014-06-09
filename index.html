@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="keywords" content="JavaScript, Restaurant App, Assignment" />
+<meta name="description" content="Restaurant App" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<title>Web application for the restaurants menus</title>
+
+<!-- CSS will go here -->
+<style>
+</style>
+
+</head>
+<body>
+Name:<input id="name" type="text" name="FirstName" value=""><br>
+<select id="Restaurants" onchange="myFunction()">
+<option selected="selected" value="select">Please chose from below:</option>
+<option value="Pizza">Hut of Pizza</option>
+<option value="Sub">Subway</option>
+<option value="Gyro">Apollo Greek Kitchen</option>
+<option value="Indian">Indian Kitchen</option>
+</select>
+<div id="menusof"></div>
+<div id="result"></div>
+<!--JavaScript will go here -->
+<script>
+
+  
+function myFunction(){
+if($("#Restaurants").val()!="select"){
+$("#menusof")
+  .html("<p> Thank you for chosing "+$("#Restaurants").val()+"</p><p>Here is the menu for the same: </p> <form id=\"choice\"></form>");
+  menus();
+  }else{
+  $("div")
+  .html("");
+  }
+  };
+function menus(){
+if($("#Restaurants").val() =="Pizza"){
+$("form").html("<input class=\"messageCheckbox\" type=\"checkbox\" value=\"VeggiePizza\">Veggie Pizza<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"Pepperoni\">Pepperoni<br></input> <input class=\"messageCheckbox\" type=\"checkbox\" value=\"Cheese\">Cheese<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"GarlicBread\">Garlic Bread<br></input><input type=\"button\" onclick=\"placeOrder()\" value=\"Place Order\">");
+}
+else if($("#Restaurants").val() =="Sub"){
+$("form").html("<input class=\"messageCheckbox\" type=\"checkbox\" value=\"VeggieSub\">Veggie Sub<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"Chicken\">Chicken Sub<br></input> <input class=\"messageCheckbox\" type=\"checkbox\" value=\"CheeseSandwich\">Grilled Cheese Sandwich<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"OrangeJuice\">Orange Juice<br></input><input  type=\"button\" onclick=\"placeOrder()\" value=\"place Order!\">");
+}
+else if($("#Restaurants").val()=="Gyro"){
+$("form").html("<input class=\"messageCheckbox\" type=\"checkbox\" value=\"Falafel\">Falafel Gyro<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"chickenGyro\">Chicken Gyro<br></input> <input class=\"messageCheckbox\" type=\"checkbox\" value=\"VeggieGyro\">Veggie Gyro<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"FountainDrink\">Fountain Drink<br></input><input type=\"button\" onclick=\"placeOrder()\" value=\"Place Order\">");
+}
+else if($("#Restaurants").val() =="Indian"){
+$("form").html("<input class=\"messageCheckbox\" type=\"checkbox\" value=\"Curry\">Curry<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"naan\">Naan<br></input> <input class=\"messageCheckbox\" type=\"checkbox\" value=\"lassi\">Lassi<br></input><input class=\"messageCheckbox\" type=\"checkbox\" value=\"RasMalai\">Ras Malai<br></input><input type=\"button\" onclick=\"placeOrder()\" value=\"Place Order\">");
+}
+};
+var finaloutput="";
+var d = new Date();
+function placeOrder(){
+var name=document.getElementById("name").value;
+if(name.length!=0){
+if(typeof(Storage) !== "undefined") {
+var selected = [];
+$('#choice input:checked').each(function() {
+    selected.push($(this).val());
+});
+finaloutput=document.getElementById("name").value+", bought "+selected.valueOf()+" on "+d.toUTCString();
+
+localStorage.setItem("Restaurant Application",finaloutput);
+	$("body").html("<p>Order "+finaloutput+" has been placed! Thanks for using the application :) Please refresh to place the order again</p>");
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+    }
+}else{
+alert("Please enter a name to place an order!");
+}
+}
+document.getElementById("result").innerHTML = "Your last order was when "+localStorage.getItem("Restaurant Application");
+</script>
+</body>
+
+</html>
